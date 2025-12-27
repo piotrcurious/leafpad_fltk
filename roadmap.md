@@ -30,9 +30,11 @@ This document outlines the progress of porting Leafpad from GTK+ to FLTK.
   - [x] Implement "File -> Save".
   - [x] Implement "File -> Save As".
   - [x] Implement "File -> Quit".
-  - [ ] Implement "Edit -> Cut".
-  - [ ] Implement "Edit -> Copy".
-  - [ ] Implement "Edit -> Paste".
+  - [x] Port "Edit -> Undo" from GTK source.
+  - [x] Port "Edit -> Redo" from GTK source.
+  - [x] Implement "Edit -> Cut".
+  - [x] Implement "Edit -> Copy".
+  - [x] Implement "Edit -> Paste".
   - [ ] Implement "Edit -> Delete".
   - [ ] Implement "Edit -> Select All".
 
@@ -53,6 +55,5 @@ This document outlines the progress of porting Leafpad from GTK+ to FLTK.
 
 ## Known Issues
 
-- [ ] The application currently has a compilation error in `src/window_fltk.cpp`.
 - [ ] The "Edit" menu items are not yet functional.
 - [ ] Advanced features from the original Leafpad are not yet implemented.

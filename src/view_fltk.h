@@ -9,7 +9,10 @@
 
 class EditorView : public Fl_Text_Editor {
 public:
+    int last_key;
+
     EditorView(int x, int y, int w, int h, const char* label = 0);
+    int handle(int event) override;
 };
 
 #endif // VIEW_FLTK_H

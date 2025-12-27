@@ -6,6 +6,8 @@ leafpad_SOURCES = \
 	view_fltk.h view_fltk.cpp \
 	callback_fltk.h callback_fltk.cpp \
 	dialog_fltk.h dialog_fltk.cpp \
+	UndoManager.h UndoManager.cpp \
+	undo.h undo.cpp \
 	i18n.h
 
 leafpad_LDADD    = $(FLTK_LIBS) $(INTLLIBS)

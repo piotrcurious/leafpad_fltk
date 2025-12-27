@@ -101,7 +101,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_leafpad_OBJECTS = leafpad-main_fltk.$(OBJEXT) \
 	leafpad-window_fltk.$(OBJEXT) leafpad-view_fltk.$(OBJEXT) \
-	leafpad-callback_fltk.$(OBJEXT) leafpad-dialog_fltk.$(OBJEXT)
+	leafpad-callback_fltk.$(OBJEXT) leafpad-dialog_fltk.$(OBJEXT) \
+	leafpad-UndoManager.$(OBJEXT) leafpad-undo.$(OBJEXT)
 leafpad_OBJECTS = $(am_leafpad_OBJECTS)
 am__DEPENDENCIES_1 =
 leafpad_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -122,9 +123,10 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/leafpad-callback_fltk.Po \
+am__depfiles_remade = ./$(DEPDIR)/leafpad-UndoManager.Po \
+	./$(DEPDIR)/leafpad-callback_fltk.Po \
 	./$(DEPDIR)/leafpad-dialog_fltk.Po \
-	./$(DEPDIR)/leafpad-main_fltk.Po \
+	./$(DEPDIR)/leafpad-main_fltk.Po ./$(DEPDIR)/leafpad-undo.Po \
 	./$(DEPDIR)/leafpad-view_fltk.Po \
 	./$(DEPDIR)/leafpad-window_fltk.Po
 am__mv = mv -f
@@ -285,6 +287,8 @@ leafpad_SOURCES = \
 	view_fltk.h view_fltk.cpp \
 	callback_fltk.h callback_fltk.cpp \
 	dialog_fltk.h dialog_fltk.cpp \
+	UndoManager.h UndoManager.cpp \
+	undo.h undo.cpp \
 	i18n.h
 
 leafpad_LDADD = $(FLTK_LIBS) $(INTLLIBS)
@@ -375,9 +379,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/leafpad-UndoManager.Po # am--include-marker
 include ./$(DEPDIR)/leafpad-callback_fltk.Po # am--include-marker
 include ./$(DEPDIR)/leafpad-dialog_fltk.Po # am--include-marker
 include ./$(DEPDIR)/leafpad-main_fltk.Po # am--include-marker
+include ./$(DEPDIR)/leafpad-undo.Po # am--include-marker
 include ./$(DEPDIR)/leafpad-view_fltk.Po # am--include-marker
 include ./$(DEPDIR)/leafpad-window_fltk.Po # am--include-marker
 
@@ -470,6 +476,34 @@ leafpad-dialog_fltk.obj: dialog_fltk.cpp
 #	$(AM_V_CXX)source='dialog_fltk.cpp' object='leafpad-dialog_fltk.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(leafpad_CXXFLAGS) $(CXXFLAGS) -c -o leafpad-dialog_fltk.obj `if test -f 'dialog_fltk.cpp'; then $(CYGPATH_W) 'dialog_fltk.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog_fltk.cpp'; fi`
+
+leafpad-UndoManager.o: UndoManager.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(leafpad_CXXFLAGS) $(CXXFLAGS) -MT leafpad-UndoManager.o -MD -MP -MF $(DEPDIR)/leafpad-UndoManager.Tpo -c -o leafpad-UndoManager.o `test -f 'UndoManager.cpp' || echo '$(srcdir)/'`UndoManager.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/leafpad-UndoManager.Tpo $(DEPDIR)/leafpad-UndoManager.Po
+#	$(AM_V_CXX)source='UndoManager.cpp' object='leafpad-UndoManager.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(leafpad_CXXFLAGS) $(CXXFLAGS) -c -o leafpad-UndoManager.o `test -f 'UndoManager.cpp' || echo '$(srcdir)/'`UndoManager.cpp
+
+leafpad-UndoManager.obj: UndoManager.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(leafpad_CXXFLAGS) $(CXXFLAGS) -MT leafpad-UndoManager.obj -MD -MP -MF $(DEPDIR)/leafpad-UndoManager.Tpo -c -o leafpad-UndoManager.obj `if test -f 'UndoManager.cpp'; then $(CYGPATH_W) 'UndoManager.cpp'; else $(CYGPATH_W) '$(srcdir)/UndoManager.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/leafpad-UndoManager.Tpo $(DEPDIR)/leafpad-UndoManager.Po
+#	$(AM_V_CXX)source='UndoManager.cpp' object='leafpad-UndoManager.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(leafpad_CXXFLAGS) $(CXXFLAGS) -c -o leafpad-UndoManager.obj `if test -f 'UndoManager.cpp'; then $(CYGPATH_W) 'UndoManager.cpp'; else $(CYGPATH_W) '$(srcdir)/UndoManager.cpp'; fi`
+
+leafpad-undo.o: undo.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(leafpad_CXXFLAGS) $(CXXFLAGS) -MT leafpad-undo.o -MD -MP -MF $(DEPDIR)/leafpad-undo.Tpo -c -o leafpad-undo.o `test -f 'undo.cpp' || echo '$(srcdir)/'`undo.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/leafpad-undo.Tpo $(DEPDIR)/leafpad-undo.Po
+#	$(AM_V_CXX)source='undo.cpp' object='leafpad-undo.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(leafpad_CXXFLAGS) $(CXXFLAGS) -c -o leafpad-undo.o `test -f 'undo.cpp' || echo '$(srcdir)/'`undo.cpp
+
+leafpad-undo.obj: undo.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(leafpad_CXXFLAGS) $(CXXFLAGS) -MT leafpad-undo.obj -MD -MP -MF $(DEPDIR)/leafpad-undo.Tpo -c -o leafpad-undo.obj `if test -f 'undo.cpp'; then $(CYGPATH_W) 'undo.cpp'; else $(CYGPATH_W) '$(srcdir)/undo.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/leafpad-undo.Tpo $(DEPDIR)/leafpad-undo.Po
+#	$(AM_V_CXX)source='undo.cpp' object='leafpad-undo.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(leafpad_CXXFLAGS) $(CXXFLAGS) -c -o leafpad-undo.obj `if test -f 'undo.cpp'; then $(CYGPATH_W) 'undo.cpp'; else $(CYGPATH_W) '$(srcdir)/undo.cpp'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -597,9 +631,11 @@ clean: clean-am
 clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/leafpad-callback_fltk.Po
+		-rm -f ./$(DEPDIR)/leafpad-UndoManager.Po
+	-rm -f ./$(DEPDIR)/leafpad-callback_fltk.Po
 	-rm -f ./$(DEPDIR)/leafpad-dialog_fltk.Po
 	-rm -f ./$(DEPDIR)/leafpad-main_fltk.Po
+	-rm -f ./$(DEPDIR)/leafpad-undo.Po
 	-rm -f ./$(DEPDIR)/leafpad-view_fltk.Po
 	-rm -f ./$(DEPDIR)/leafpad-window_fltk.Po
 	-rm -f Makefile
@@ -647,9 +683,11 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/leafpad-callback_fltk.Po
+		-rm -f ./$(DEPDIR)/leafpad-UndoManager.Po
+	-rm -f ./$(DEPDIR)/leafpad-callback_fltk.Po
 	-rm -f ./$(DEPDIR)/leafpad-dialog_fltk.Po
 	-rm -f ./$(DEPDIR)/leafpad-main_fltk.Po
+	-rm -f ./$(DEPDIR)/leafpad-undo.Po
 	-rm -f ./$(DEPDIR)/leafpad-view_fltk.Po
 	-rm -f ./$(DEPDIR)/leafpad-window_fltk.Po
 	-rm -f Makefile

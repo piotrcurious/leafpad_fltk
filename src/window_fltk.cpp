@@ -16,12 +16,14 @@ static void on_about_cb(Fl_Widget*, void*) {
 
 MainWindow::MainWindow(int w, int h, const char* title) : Fl_Window(w, h, title) {
     current_filename = NULL;
+    changed = false;
 
     begin();
 
     editor = new EditorView(0, 30, w, h - 30);
     Fl_Text_Buffer *buff = new Fl_Text_Buffer();
     editor->buffer(buff);
+    undo_manager = new UndoManager(buff, editor, this);
 
     Fl_Menu_Item menu_items[] = {
         { "&File", 0, 0, 0, FL_SUBMENU },
@@ -32,12 +34,11 @@ MainWindow::MainWindow(int w, int h, const char* title) : Fl_Window(w, h, title)
             { "&Quit", FL_CTRL + 'q', (Fl_Callback *)on_file_quit, this },
             { 0 },
         { "&Edit", 0, 0, 0, FL_SUBMENU },
-            // Fl_Text_Editor provides default key bindings for these
-            { "Undo", FL_CTRL + 'z', 0, 0, 0 },
-            { "Redo", FL_CTRL + FL_SHIFT + 'z', 0, 0, 0 },
-            { "Cu&t", FL_CTRL + 'x', 0, 0, 0 },
-            { "&Copy", FL_CTRL + 'c', 0, 0, 0 },
-            { "&Paste", FL_CTRL + 'v', 0, 0, 0 },
+            { "Undo", FL_CTRL + 'z', (Fl_Callback *)on_edit_undo, this },
+            { "Redo", FL_CTRL + FL_SHIFT + 'z', (Fl_Callback *)on_edit_redo, this },
+            { "Cu&t", FL_CTRL + 'x', (Fl_Callback *)on_edit_cut, this },
+            { "&Copy", FL_CTRL + 'c', (Fl_Callback *)on_edit_copy, this },
+            { "&Paste", FL_CTRL + 'v', (Fl_Callback *)on_edit_paste, this },
             { "Select &All", FL_CTRL + 'a', 0, 0, 0 },
             { 0 },
         { "&Help", 0, 0, 0, FL_SUBMENU },
