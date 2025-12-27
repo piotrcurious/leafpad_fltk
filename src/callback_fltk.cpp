@@ -85,3 +85,9 @@ void on_edit_paste(Fl_Widget* w, void* v) {
     MainWindow* window = (MainWindow*)v;
     Fl_Text_Editor::kf_paste(0, window->editor);
 }
+
+void on_edit_select_all(Fl_Widget* w, void* v) {
+    MainWindow* window = (MainWindow*)v;
+    window->editor->take_focus();
+    Fl_Text_Editor::kf_select_all(0, window->editor);
+}

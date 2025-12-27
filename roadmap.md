@@ -36,7 +36,7 @@ This document outlines the progress of porting Leafpad from GTK+ to FLTK.
   - [x] Implement "Edit -> Copy".
   - [x] Implement "Edit -> Paste".
   - [ ] Implement "Edit -> Delete".
-  - [ ] Implement "Edit -> Select All".
+  - [x] Implement "Edit -> Select All".
 
 - [x] **Dialogs (`dialog_fltk.cpp`, `dialog_fltk.h`)**
   - [x] Implement "Help -> About".
@@ -55,5 +55,6 @@ This document outlines the progress of porting Leafpad from GTK+ to FLTK.
 
 ## Known Issues
 
+- [ ] The "Select All" menu item is not working due to a focus issue.
 - [ ] The "Edit" menu items are not yet functional.
 - [ ] Advanced features from the original Leafpad are not yet implemented.

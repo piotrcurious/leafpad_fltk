@@ -66,7 +66,7 @@ static void buffer_modified_cb(int pos, int nInserted, int nDeleted, int nRestyl
     } else if (nDeleted > 0) {
         int keyval = get_current_keyval();
         char command = (keyval == FL_BackSpace) ? BS : DEL;
-        undo_create_undo_info(command, pos, pos, deletedText);
+        undo_create_undo_info(command, pos, pos + nDeleted, deletedText);
     }
 }
 
@@ -206,7 +206,7 @@ static void undo_create_undo_info(char command, int start, int end, const char* 
 	int keyval = get_current_keyval();
 
 	if (!undo_str.empty()) {
-		if ((end - start == 1) && (command == ui_tmp->command)) {
+		if ((strlen(text) == 1) && (command == ui_tmp->command)) {
 			switch (keyval) {
 			case FL_BackSpace:
 				if (end == ui_tmp->start)
@@ -256,7 +256,7 @@ static void undo_create_undo_info(char command, int start, int end, const char* 
 	if (!keyval && prev_keyval)
 		undo_set_sequency(true);
 
-	if (strlen(str) == 1 &&
+	if (strlen(text) == 1 &&
 		((keyval && keyval < 0xF000) ||
 		  keyval == FL_BackSpace || keyval == FL_Delete || keyval == FL_Tab)) {
 		ui_tmp->command = command;

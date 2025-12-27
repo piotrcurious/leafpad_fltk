@@ -39,7 +39,7 @@ MainWindow::MainWindow(int w, int h, const char* title) : Fl_Window(w, h, title)
             { "Cu&t", FL_CTRL + 'x', (Fl_Callback *)on_edit_cut, this },
             { "&Copy", FL_CTRL + 'c', (Fl_Callback *)on_edit_copy, this },
             { "&Paste", FL_CTRL + 'v', (Fl_Callback *)on_edit_paste, this },
-            { "Select &All", FL_CTRL + 'a', 0, 0, 0 },
+            { "Select &All", FL_CTRL + 'a', (Fl_Callback *)on_edit_select_all, this },
             { 0 },
         { "&Help", 0, 0, 0, FL_SUBMENU },
             { "&About", 0, (Fl_Callback*)on_about_cb },
