@@ -20,7 +20,7 @@ MainWindow::MainWindow(int w, int h, const char* title) : Fl_Window(w, h, title)
 
     begin();
 
-    editor = new EditorView(0, 30, w, h - 30);
+    editor = new EditorView(0, 30, w, h - 30, this);
     Fl_Text_Buffer *buff = new Fl_Text_Buffer();
     editor->buffer(buff);
     undo_manager = new UndoManager(buff, editor, this);

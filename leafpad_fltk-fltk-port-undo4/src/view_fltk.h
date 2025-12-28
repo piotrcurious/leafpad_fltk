@@ -7,11 +7,14 @@
 
 #include <FL/Fl_Text_Editor.H>
 
+class MainWindow;
+
 class EditorView : public Fl_Text_Editor {
 public:
     int last_key;
+    MainWindow* main_win;
 
-    EditorView(int x, int y, int w, int h, const char* label = 0);
+    EditorView(int x, int y, int w, int h, MainWindow* win, const char* label = 0);
     int handle(int event) override;
 };
 
