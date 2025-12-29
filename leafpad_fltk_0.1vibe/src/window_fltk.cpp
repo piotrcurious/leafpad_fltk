@@ -14,9 +14,30 @@ static void on_about_cb(Fl_Widget*, void*) {
     show_about_dialog();
 }
 
+static void on_options_line_wrap(Fl_Widget* w, void* data) {
+    MainWindow* win = (MainWindow*)data;
+    win->line_wrap_enabled = !win->line_wrap_enabled;
+    if (win->line_wrap_enabled) {
+        win->editor->wrap_mode(Fl_Text_Display::WRAP_AT_BOUNDS, 0);
+    } else {
+        win->editor->wrap_mode(Fl_Text_Display::WRAP_NONE, 0);
+    }
+    Fl_Menu_Bar* menu_bar = (Fl_Menu_Bar*)w;
+    Fl_Menu_Item* item = (Fl_Menu_Item*)menu_bar->find_item("&Options/&Line Wrap");
+    if (item) {
+        if (win->line_wrap_enabled) {
+            item->set();
+        } else {
+            item->clear();
+        }
+    }
+}
+
+
 MainWindow::MainWindow(int w, int h, const char* title) : Fl_Window(w, h, title) {
     current_filename = NULL;
     changed = false;
+    line_wrap_enabled = false;
 
     begin();
 
@@ -40,6 +61,9 @@ MainWindow::MainWindow(int w, int h, const char* title) : Fl_Window(w, h, title)
             { "&Copy", FL_CTRL + 'c', (Fl_Callback *)on_edit_copy, this },
             { "&Paste", FL_CTRL + 'v', (Fl_Callback *)on_edit_paste, this },
             { "Select &All", FL_CTRL + 'a', (Fl_Callback *)on_edit_select_all, this },
+            { 0 },
+        { "&Options", 0, 0, 0, FL_SUBMENU },
+            { "&Line Wrap", 0, (Fl_Callback *)on_options_line_wrap, this, FL_MENU_TOGGLE },
             { 0 },
         { "&Help", 0, 0, 0, FL_SUBMENU },
             { "&About", 0, (Fl_Callback*)on_about_cb },
