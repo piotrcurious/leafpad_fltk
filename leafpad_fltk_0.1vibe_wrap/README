@@ -10,6 +10,9 @@ works:
 23kb binary with LTO 
 11M RSS (TODO : reduce RSS memory use to make it run on old computers)
 
+TODO :
+- proportional font
+- search/replace/awk/grep engine
 
 ----
 old :
